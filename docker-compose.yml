@@ -2,19 +2,13 @@ version: '3'
 
 services:
     gcloud1:
-        # image: kihi1215/gcloud-compose
-        build:
-            context: .
-            dockerfile: Dockerfile
+        image: kihi1215/gcloud-compose
         stdin_open: true
         tty: true
         volumes:
             - gcloud-config:/root/.config/gcloud
     gcloud2:
-        # image: kihi1215/gcloud-compose
-        build:
-            context: .
-            dockerfile: Dockerfile
+        image: kihi1215/gcloud-compose
         tty: true
         volumes:
             - gcloud-config:/root/.config/gcloud
