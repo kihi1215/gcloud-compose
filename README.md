@@ -12,3 +12,6 @@ dummy はイメージをローカルに作るタメだけのコンテナ。実�
 プロジェクトの切り替えは、ログイン時のシェルとかでもいいかなという感じ。
 
 [gcloud config configurations](https://cloud.google.com/sdk/gcloud/reference/config/configurations?hl=ja) だと、ユーザとプロジェクトとその他もろもろぜんぶセットで切り替えてくれるっぽいので、ボリュームマウントいらないのかも。
+gcloud config configurations を使って切り替えると、保存もとが .config/gcloud っぽいので両方のコンテナの設定が変わるので、同時に開発してるとダメみたい。
+
+[ここ](https://cloud.google.com/sdk/docs/properties?hl=ja) に書いてあるように、環境変数で設定するのが良さそうかな。
