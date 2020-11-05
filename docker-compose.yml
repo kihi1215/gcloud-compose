@@ -1,17 +1,34 @@
 version: '3'
 
 services:
-    gcloud1:
-        image: kihi1215/gcloud-compose
-        stdin_open: true
+    dummy:
+        container_name: dummy
+        build: .
+        image: gcloud
+        read_only: true
+
+    c1:
+        container_name: for-management
+        image: gcloud
         tty: true
         volumes:
-            - gcloud-config:/root/.config/gcloud
-    gcloud2:
-        image: kihi1215/gcloud-compose
+            - gcloud-config-administrator:/root/.config/gcloud
+
+    c2:
+        container_name: project-a
+        image: gcloud
         tty: true
         volumes:
-            - gcloud-config:/root/.config/gcloud
-        
+            - gcloud-config-developer:/root/.config/gcloud
+
+    c3:
+        container_name: project-b
+        image: gcloud
+        tty: true
+        volumes:
+            - gcloud-config-developer:/root/.config/gcloud
+
 volumes:
-    gcloud-config:
+    gcloud-config-administrator:
+    gcloud-config-developer:
+

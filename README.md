@@ -1,20 +1,14 @@
-## centos8 に gcloud の開発環境を作ってみる　の第二弾
+## centos8 に gcloud の開発環境をユーザ毎に作ってみる
 
-gcloudリポジトリをちょっと改造してコンポーザバージョンにしてみた。
+コンテナを新規作成したときに、毎回 `gcloud init` を実行したくないので、ユーザ情報などが保存されているディレクトリ（ .config/gcloud ）をボリュームマウントするようにした。
+コンテナとボリュームの関係は composer でまとめておいた。
 
-（複数プロジェクトを並行して開発してる時とかはコンテナ二つとか起動するかも？）
+コンテナイメージは dockerhub の [kihi1215/gcloud](https://hub.docker.com/repository/docker/kihi1215/gcloud) を使用する。
 
-ユーザの情報などが保存されているディレクトリ .config/gcloud を　ボリュームマウントすることで認証が一回だけでよくなった。
+dummy はイメージをローカルに作るタメだけのコンテナ。実際に使うコンテナの一つ目だけ build であとは image を使えばいいのだけれど、実際に使うコンテナの記述を統一したかったので、あえてダミーを作ってある。composer でイメージを作るだけの記述ってできないのかな。
 
-（でもプロジェクトが違うからコンテナ二つ起動してたら、同じボリュームをマウントしてるから、逆にダメかもw）
+実際は、プロジェクト毎にコンテナを作って、プロジェクトに必要な物だけがインストールして使うけれど、デフォルトプロジェクトの設定までボリュームで分けると、ボリュームにしてる意味もよくわかんなくなるので、とりあえずユーザ毎にしてみた。
 
+プロジェクトの切り替えは、ログイン時のシェルとかでもいいかなという感じ。
 
----
-## 以下はメモの残骸（気にしないでね）
-
-[googleのドキュメント](https://cloud.google.com/sdk/docs/quickstart-redhat-centos?hl=ja) をもとにやってみました。
-とりあえず `gcloud init` 実行後のコンテナからイメージを再作成して使いまわしています。
-
-本当は [この方法](https://cloud.google.com/sdk/docs/downloads-docker?hl=ja) で認証のところとか、ボリュームを作ってマウントして... みたいなのをしないとダメなのかな？
-
-コンポーネントの追加は [ここ](https://cloud.google.com/sdk/docs/components?hl=ja#external_package_managers) を参照すればいいかな。
+[gcloud config configurations](https://cloud.google.com/sdk/gcloud/reference/config/configurations?hl=ja) だと、ユーザとプロジェクトとその他もろもろぜんぶセットで切り替えてくれるっぽいので、ボリュームマウントいらないのかも。
