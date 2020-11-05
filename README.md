@@ -17,7 +17,12 @@ dummy はイメージをローカルに作るタメだけのコンテナ。実�
 `gcloud config configurations active` を使って切り替えると、保存もとが .config/gcloud っぽいので両方のコンテナの設定が変わるので、同時に開発してるとダメみたい。
 
 しかし、[ここ](https://cloud.google.com/sdk/docs/configurations?hl=ja) の CLOUDSDK_ACTIVE_CONFIG_NAME という環境変数を使うとのが良さそう。
-これだとコンテナ毎に設定が異なる状態になってくれるのでいい感じ。
+これだとコンテナ毎に設定が異なる状態になってくれるのでいい感じ。ただし全てのコンテナに環境変数を設定しないと引きずられてしまうみたい。
 
 [ここ](https://cloud.google.com/sdk/docs/properties?hl=ja) に書いてあるように、プロジェクトやリージョンなど個別の環境変数で設定するのもありみたいだけど、 CLOUDSDK_ACTIVE_CONFIG_NAME の方が事前準備は必要だけど便利かな。
 
+
+あとは、 .config/gcloud 全体を共有しているので、ログが入り乱れてそうで怖いから、 `gcloud info` で表示されている User Config Directory の設定を(例えば/root/.config/gcloud-configに)変更して、そこをボリュームマウントしてもいい。
+同じく Logs Directory も設定できるようだが、これはこのままがいいかな。イメージ作成時にマウントする為に既存の.config/gcloud を.config/gcloud-old にリネームしてるのとかもいらなくなりそうだし。
+
+この辺りの作業は後日。
