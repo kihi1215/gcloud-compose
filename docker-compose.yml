@@ -20,6 +20,10 @@ services:
         tty: true
         volumes:
             - gcloud-config-developer:/root/.config/gcloud
+        environment: 
+            - CLOUDSDK_CORE_PROJECT=agile-entry-451124
+            - CLOUDSDK_COMPUTE_REGION=asia-northeast2
+            - CLOUDSDK_COMPUTE_ZONE=asia-northeast2-b
 
     c3:
         container_name: project-b
@@ -27,7 +31,11 @@ services:
         tty: true
         volumes:
             - gcloud-config-developer:/root/.config/gcloud
-
+        environment: 
+            - CLOUDSDK_CORE_PROJECT=t-osprey-478522
+            - CLOUDSDK_COMPUTE_REGION=asia-northeast1
+            - CLOUDSDK_COMPUTE_ZONE=asia-northeast1-a
+    
 volumes:
     gcloud-config-administrator:
     gcloud-config-developer:
