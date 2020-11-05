@@ -21,7 +21,7 @@ services:
         volumes:
             - gcloud-config-developer:/root/.config/gcloud
         environment: 
-            - CLOUDSDK_CORE_PROJECT=agile-entry-451124
+            - CLOUDSDK_CORE_PROJECT=project-a-451124
             - CLOUDSDK_COMPUTE_REGION=asia-northeast2
             - CLOUDSDK_COMPUTE_ZONE=asia-northeast2-b
 
@@ -32,7 +32,7 @@ services:
         volumes:
             - gcloud-config-developer:/root/.config/gcloud
         environment: 
-            - CLOUDSDK_CORE_PROJECT=t-osprey-478522
+            - CLOUDSDK_CORE_PROJECT=t-project-b-478522
             - CLOUDSDK_COMPUTE_REGION=asia-northeast1
             - CLOUDSDK_COMPUTE_ZONE=asia-northeast1-a
     
